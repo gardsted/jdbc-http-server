@@ -208,11 +208,11 @@ public class RowsResource extends DataSourceResource {
 	}
 	
 	void writeRow(final JsonGenerator jsonGenerator, final Record record) throws SQLException, JsonGenerationException, IOException {
-		jsonGenerator.writeStartArray();
-		for (Object value : record.intoArray()) {
-			jsonGenerator.writeObject(value);
+		jsonGenerator.writeStartObject();
+		for (Map.Entry<String, Object> entry : record.intoMap().entrySet()) {
+			jsonGenerator.writeObjectField(entry.getKey(), entry.getValue());
 		}
-		jsonGenerator.writeEndArray();
+		jsonGenerator.writeEndObject();
 	}
 	
 	List<Field<Object>> getFields() throws SQLException {
