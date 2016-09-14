@@ -211,7 +211,14 @@ public class RowsResource extends DataSourceResource {
 		jsonGenerator.writeStartObject();
 		try {
 			for (Map.Entry<String, Object> entry : record.intoMap().entrySet()) {
-				jsonGenerator.writeObjectField(entry.getKey(), entry.getValue());
+				Object value = entry.getValue();
+				Object valueWritable;
+				if (value instanceof java.util.Date) {
+					valueWritable = value.toString();
+				} else {
+					valueWritable = value;
+				}
+				jsonGenerator.writeObjectField(entry.getKey(), valueWritable);
 			}
 		} finally {
 			jsonGenerator.writeEndObject();
