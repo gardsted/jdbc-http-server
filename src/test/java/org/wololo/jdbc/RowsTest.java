@@ -47,7 +47,7 @@ public class RowsTest extends ServerTest {
 			statement.execute("insert into test (name) values ('test')");
 			statement.execute("insert into test (name) values ('test2')");
 		}
-		assertEquals(getJson("RowsTwo"), target(path).queryParam("select", "id,name").request().get(String.class));
+		assertEquals(getJson("RowsTwoSelectTwo"), target(path).queryParam("select", "id,name").request().get(String.class));
 	}
 	
 	@Test
